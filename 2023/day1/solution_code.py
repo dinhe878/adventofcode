@@ -19,18 +19,24 @@ input = open("input.txt", 'r')
 #############################################################################################
 #             Part 2                                                                        #
 #############################################################################################
+
+# lookup dictionary forward
 lookup_dict_f = {"zero": "0", "0": "0", "one": "1", "1": "1", "two": "2", "2": "2", "three": "3", "3": "3", 
                "four": "4", "4": "4", "five": "5", "5": "5", "six": "6", "6": "6", "seven": "7", "7": "7", 
                "eight": "8", "8": "8", "nine": "9", "9": "9",}
+
+# lookup dictionary reverse
 lookup_dict_r = {"zero"[::-1]: "0", "0": "0", "one"[::-1]: "1", "1": "1", "two"[::-1]: "2", "2": "2", "three"[::-1]: "3", "3": "3", 
                "four"[::-1]: "4", "4": "4", "five"[::-1]: "5", "5": "5", "six"[::-1]: "6", "6": "6", "seven"[::-1]: "7", "7": "7", 
                "eight"[::-1]: "8", "8": "8", "nine"[::-1]: "9", "9": "9",}
 
+# lookup patterns
 pattern_f = '|'.join(k for k in lookup_dict_f)
 pattern_r = '|'.join(k for k in lookup_dict_r)
 
+# the reverse scan is for cases like "gfour1rmznkmplqfsevennksglsfdqtwotwonet"
+# the correct answer is 41 not 42
 for line in input.readlines():
-    #converted_line = re.sub(pattern, lambda m: lookup_dict.get(m.group(0)), line, flags=re.IGNORECASE)
     first_digit = lookup_dict_f[re.findall(pattern_f, line)[0]]
     last_digit = lookup_dict_r[re.findall(pattern_r, line[::-1])[0]]
     all_line_twoDigit.append(first_digit + last_digit)
